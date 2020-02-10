@@ -14,12 +14,16 @@ function App({ array }) {
     setMatrix(array);
   }, [array]);
 
-  console.log(matrix);
-
   return (
     <div className="App">
       <Form />
-      {matrix.array && <Table matrix={matrix.array} />}
+      {/*{matrix && (*/}
+      <Table
+        array={matrix.array}
+        calculatedRows={matrix.calculatedRows}
+        calculatedColumns={matrix.calculatedColumns}
+      />
+      {/*)}*/}
     </div>
   );
 }
@@ -28,8 +32,4 @@ const mapStateToProps = state => ({
   array: state.matrix
 });
 
-const mapDispatchToProps = dispatch => ({
-  created: (M, N) => dispatch(creatingMatrix(M, N))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);

@@ -6,17 +6,18 @@ export const generateAndFillArray = (M, N) => {
       return cell;
     })
   );
-  console.log(matrix);
+  calculateR(matrix);
+  matrix.push(calculateC(matrix));
   return matrix;
 };
 
 const calculateR = matrix => {
-  return matrix.map(row => row.reduce((acc, value) => acc + +value.data, 0));
+  matrix.map(row => row.push(row.reduce((acc, value) => acc + +value.data, 0)));
 };
 
 const calculateC = matrix => {
   return matrix[0].map((_, i) =>
-    matrix.reduce((columns, arr) => columns + arr[i].data, 0)
+    matrix.reduce((columns, arr) => columns + +arr[i].data, 0)
   );
 };
 
@@ -30,8 +31,6 @@ export const creatingMatrix = (M, N) => {
   console.log("eee");
   return {
     type: "CREATING_MATRIX",
-    matrix: matrix,
-    rows: calculateR(matrix),
-    columns: calculateC(matrix)
+    matrix: matrix
   };
 };

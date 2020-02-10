@@ -1,28 +1,28 @@
 import React from "react";
+import styles from "./styles.module.css";
 
-const Table = ({ matrix }) => {
+const Table = ({ array, calculatedRows, calculatedColumns }) => {
+  array && array[array.length - 1].pop();
   return (
-    <table
-      border="1"
-      bordercolor="#8b967d"
-      cellSpacing="0"
-      cellPadding="5"
-      height="80px"
-    >
-      <tbody>
-        {matrix[0].map(row => console.log(row))}
-        {/* <tr>
-          <td style={{ fontSize: "12px" }}>345</td>
-          <td style={{ backgrounColor: "#ffffcc" }}>666</td>
-          <td>777</td>
-        </tr>
-        <tr>
-          <td>999</td>
-          <td>111</td>
-          <td>523</td>
-        </tr> */}
-      </tbody>
-    </table>
+    <div className="table__data">
+      <table cellSpacing="0" cellPadding="5">
+        <tbody>
+          {array &&
+            array.map((row, idx) => (
+              <tr>
+                {row.map(item => (
+                  <td
+                    key={item.id}
+                    className={item.data ? styles.data : styles.summary}
+                  >
+                    {item.data || Number(item)}
+                  </td>
+                ))}
+              </tr>
+            ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 

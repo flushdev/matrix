@@ -13,7 +13,6 @@ const Button = ({ create, row, column }) => {
   return (
     <>
       <button
-        className={styles.button}
         onClick={() => handleCreateMatrix(row, column)}
         disabled={!(column && row)}
       >
@@ -27,4 +26,7 @@ const mapDispatchToProps = dispatch => ({
   create: (M, N) => dispatch(creatingMatrix(M, N))
 });
 
-export default connect(null, mapDispatchToProps)(Button);
+export default connect(
+  null,
+  mapDispatchToProps
+)(Button);

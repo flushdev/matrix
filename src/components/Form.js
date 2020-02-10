@@ -23,20 +23,23 @@ const Form = ({ create }) => {
           name="row"
           placeholder="Rows"
           type="text"
+          autoComplete="off"
           onChange={handleChangeRows}
-        ></input>
+        />
         <input
           name="columns"
           placeholder="Columns"
           type="text"
+          autoComplete="off"
           onChange={handleChangeColumn}
-        ></input>
+        />
         <input
           name="nearest"
           placeholder="Show nearest"
           type="text"
+          autoComplete="off"
           onChange={handleChangeNearestAmount}
-        ></input>
+        />
       </form>
       {<Button row={row} column={column} />}
     </>

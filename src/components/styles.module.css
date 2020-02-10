@@ -1,9 +1,13 @@
+body {
+  box-sizing: border-box;
+}
+
 button {
   height: 50px;
   width: 50px;
   font-size: 32px;
-  padding-bottom: 6px;
-  padding-left: 8px;
+  padding-bottom: 7px;
+  padding-left: 7px;
   background-color: #7ec58a;
   color: #fff;
   font-weight: normal;
@@ -20,4 +24,48 @@ button {
 
 button:disabled {
   background-color: #7ec58ad0;
+}
+
+input {
+  border: none;
+  border-bottom: 1px solid #cdcdcd;
+  padding: 10px 10px;
+  margin: 0 10px;
+  font-size: 1rem;
+  transition: 0.5s ease;
+}
+
+input:active,
+input:focus {
+  outline: none !important;
+  border-bottom: 1px solid #505050;
+  color: #505050;
+}
+
+table {
+  margin: 0;
+  border: 0;
+}
+
+td {
+  font-size: 1.5rem;
+  /*padding: 18px 10px;*/
+  width: 44px;
+  height: 44px;
+}
+
+.table__data {
+  margin: 50px auto;
+}
+
+.data {
+  border: 1px solid #333;
+  /*border-bottom: 1px solid #333;*/
+  /*border-top: 1px solid #333;*/
+}
+
+.summary {
+  color: #00000065;
+  border: none;
+  font-size: 1rem;
 }
