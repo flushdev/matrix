@@ -3,17 +3,14 @@ body {
 }
 
 button {
-  height: 50px;
-  width: 50px;
-  font-size: 32px;
-  padding-bottom: 7px;
-  padding-left: 7px;
-  background-color: #7ec58a;
+  height: 38px;
+  width: 100px;
+  font-size: 1.2rem;
+  background-color: #29402d;
+  border-radius: 5px;
   color: #fff;
-  font-weight: normal;
-  border-radius: 50%;
+  font-weight: bold;
   border: none;
-  transition: 0.4s ease;
 }
 
 button:active,
@@ -23,7 +20,11 @@ button {
 }
 
 button:disabled {
-  background-color: #7ec58ad0;
+  background-color: rgba(0, 0, 0, 0.26);
+}
+
+.buttonDelete {
+  width: 150px;
 }
 
 input {
@@ -43,29 +44,55 @@ input:focus {
 }
 
 table {
-  margin: 0;
+  margin: 100px auto;
+  transform: translateX(27px);
   border: 0;
 }
 
 td {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   /*padding: 18px 10px;*/
-  width: 44px;
-  height: 44px;
+  width: 54px;
+  height: 54px;
+  max-width: 54px;
+  max-height: 54px;
+  cursor: pointer;
+  user-select: none;
+  background-clip: padding-box;
+  transition: 0.15s ease;
+}
+
+.inputContainer {
+  display: flex;
+  justify-content: center;
 }
 
 .table__data {
+  outline: 1px solid #333;
   margin: 50px auto;
 }
 
 .data {
-  border: 1px solid #333;
-  /*border-bottom: 1px solid #333;*/
-  /*border-top: 1px solid #333;*/
+  outline: 1px solid #333;
 }
 
 .summary {
-  color: #00000065;
+  color: #00000090;
   border: none;
+  font-size: 1.2rem;
+  /*font-weight: bold;*/
+}
+
+.percents {
+  outline: 1px solid #333;
   font-size: 1rem;
+  font-weight: bold;
+  background-color: rgba(95, 95, 95, 0.2);
+}
+
+.tdLighten {
+  outline: 1px solid #333;
+  background-color: #91b84c;
+  color: #000;
+  transition: 0.3s ease;
 }

@@ -4,7 +4,6 @@ import "./App.css";
 
 import { creatingMatrix } from "./store/actions/createMatrix";
 
-import Table from "./components/Table";
 import Form from "./components/Form";
 
 function App({ array }) {
@@ -14,16 +13,11 @@ function App({ array }) {
     setMatrix(array);
   }, [array]);
 
+  console.log(matrix);
+
   return (
     <div className="App">
       <Form />
-      {/*{matrix && (*/}
-      <Table
-        array={matrix.array}
-        calculatedRows={matrix.calculatedRows}
-        calculatedColumns={matrix.calculatedColumns}
-      />
-      {/*)}*/}
     </div>
   );
 }

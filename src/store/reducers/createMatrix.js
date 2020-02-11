@@ -1,7 +1,5 @@
 const initialState = {
-  array: null,
-  calculatedRows: null,
-  calculatedColumns: null
+  array: null
 };
 
 export default (state = initialState, action) => {
@@ -9,10 +7,15 @@ export default (state = initialState, action) => {
     case "CREATING_MATRIX":
       return {
         ...state,
-        array: action.matrix,
-        calculatedRows: action.rows,
-        calculatedColumns: action.columns
+        array: action.matrix
       };
+    case "INCREMENT_CELL":
+      return {
+        ...state,
+        array: action.matrix
+      };
+    case "MATRIX_DELETE":
+      return initialState;
     default:
       return state;
   }

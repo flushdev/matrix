@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Button from "./Button";
+import Table from "./Table";
+import styles from "./styles.module.css";
 
-const Form = ({ create }) => {
+const Form = () => {
   const [column, setColumn] = useState(null);
   const [row, setRow] = useState(null);
   const [nearestAmount, setNearestAmount] = useState(null);
+  const [empty, setEmpty] = useState(true);
 
   const handleChangeRows = e => {
     setRow(+e.target.value);
@@ -15,33 +18,50 @@ const Form = ({ create }) => {
   const handleChangeNearestAmount = e => {
     setNearestAmount(+e.target.value);
   };
+  const handleButtonDisplay = () => {
+    setEmpty(!empty);
+  };
+
+  console.log(empty);
 
   return (
     <>
-      <form>
-        <input
-          name="row"
-          placeholder="Rows"
-          type="text"
-          autoComplete="off"
-          onChange={handleChangeRows}
+      <h4>Generate new Matrix</h4>
+      <div className={styles.inputContainer}>
+        {empty && (
+          <form>
+            <input
+              name="row"
+              placeholder="Rows"
+              type="text"
+              autoComplete="off"
+              onChange={handleChangeRows}
+            />
+            <input
+              name="columns"
+              placeholder="Columns"
+              type="text"
+              autoComplete="off"
+              onChange={handleChangeColumn}
+            />
+            <input
+              name="nearest"
+              placeholder="Show nearest"
+              type="text"
+              autoComplete="off"
+              onChange={handleChangeNearestAmount}
+            />
+          </form>
+        )}
+        <Button
+          row={row}
+          column={column}
+          handleButtonDisplay={handleButtonDisplay}
+          empty={empty}
         />
-        <input
-          name="columns"
-          placeholder="Columns"
-          type="text"
-          autoComplete="off"
-          onChange={handleChangeColumn}
-        />
-        <input
-          name="nearest"
-          placeholder="Show nearest"
-          type="text"
-          autoComplete="off"
-          onChange={handleChangeNearestAmount}
-        />
-      </form>
-      {<Button row={row} column={column} />}
+      </div>
+
+      <Table nearest={nearestAmount} />
     </>
   );
 };
