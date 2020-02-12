@@ -1,20 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
+import React from "react";
 import "./App.css";
-
-import { creatingMatrix } from "./store/actions/createMatrix";
 
 import Form from "./components/Form";
 
-function App({ array }) {
-  const [matrix, setMatrix] = useState(array);
-
-  useEffect(() => {
-    setMatrix(array);
-  }, [array]);
-
-  console.log(matrix);
-
+function App() {
   return (
     <div className="App">
       <Form />
@@ -22,8 +11,4 @@ function App({ array }) {
   );
 }
 
-const mapStateToProps = state => ({
-  array: state.matrix
-});
-
-export default connect(mapStateToProps)(App);
+export default App;

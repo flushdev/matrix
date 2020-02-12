@@ -4,9 +4,9 @@ import Table from "./Table";
 import styles from "./styles.module.css";
 
 const Form = () => {
-  const [column, setColumn] = useState(null);
-  const [row, setRow] = useState(null);
-  const [nearestAmount, setNearestAmount] = useState(null);
+  const [row, setRow] = useState(4);
+  const [column, setColumn] = useState(9);
+  const [nearestAmount, setNearestAmount] = useState(3);
   const [empty, setEmpty] = useState(true);
 
   const handleChangeRows = e => {
@@ -22,8 +22,6 @@ const Form = () => {
     setEmpty(!empty);
   };
 
-  console.log(empty);
-
   return (
     <>
       <h4>Generate new Matrix</h4>
@@ -32,22 +30,22 @@ const Form = () => {
           <form>
             <input
               name="row"
-              placeholder="Rows"
-              type="text"
+              placeholder="Rows [default 4]"
+              type="number"
               autoComplete="off"
               onChange={handleChangeRows}
             />
             <input
               name="columns"
-              placeholder="Columns"
-              type="text"
+              placeholder="Columns [default 9]"
+              type="number"
               autoComplete="off"
               onChange={handleChangeColumn}
             />
             <input
               name="nearest"
-              placeholder="Show nearest"
-              type="text"
+              placeholder="Nearest [default 3]"
+              type="number"
               autoComplete="off"
               onChange={handleChangeNearestAmount}
             />
@@ -60,6 +58,19 @@ const Form = () => {
           empty={empty}
         />
       </div>
+      {!empty && (
+        <>
+          <input
+            name="nearestAfter"
+            placeholder="Show nearest"
+            type="number"
+            autoComplete="off"
+            value={nearestAmount}
+            onChange={handleChangeNearestAmount}
+          />
+          <h4 className={styles.inputTitle}>Nearest amount</h4>
+        </>
+      )}
 
       <Table nearest={nearestAmount} />
     </>

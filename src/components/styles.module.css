@@ -11,6 +11,7 @@ button {
   color: #fff;
   font-weight: bold;
   border: none;
+  margin: 0 5px;
 }
 
 button:active,
@@ -27,6 +28,16 @@ button:disabled {
   width: 150px;
 }
 
+.addButton {
+  font-size: 1rem;
+  font-weight: bold;
+  width: 54px;
+  height: 54px;
+  margin: 0;
+  padding: 0;
+  border-radius: 0 5px 5px 0;
+}
+
 input {
   border: none;
   border-bottom: 1px solid #cdcdcd;
@@ -38,28 +49,83 @@ input {
 
 input:active,
 input:focus {
-  outline: none !important;
+  outline: none;
   border-bottom: 1px solid #505050;
   color: #505050;
 }
 
+input[name="nearestAfter"] {
+  margin-top: 32px;
+  width: 70px;
+  height: 20px;
+  text-align: center;
+  font-size: 2rem;
+}
+
+input[name="newRowInput"] {
+  margin: 0;
+  width: 54px;
+  padding: 0;
+  font-weight: normal;
+  border: none;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
 table {
-  margin: 100px auto;
-  transform: translateX(27px);
+  margin: 0 auto;
+  transform: translateX(-27px);
   border: 0;
 }
 
+tr {
+  overflow: hidden;
+}
+
 td {
-  font-size: 1.4rem;
-  /*padding: 18px 10px;*/
+  font-size: 1.2rem;
   width: 54px;
   height: 54px;
   max-width: 54px;
   max-height: 54px;
+  min-width: 54px;
+  min-height: 54px;
   cursor: pointer;
   user-select: none;
+  padding: 0;
+  margin: 0;
   background-clip: padding-box;
   transition: 0.15s ease;
+  overflow: hidden;
+}
+
+.inputTitle {
+  padding: 0;
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+
+.deleteRow {
+  visibility: hidden;
+  font-weight: normal;
+  font-size: 1.5rem;
+  opacity: 0.1;
+  max-width: 20px;
+  min-width: 20px;
+  padding: 0;
+  transition: 0.01s eases;
+}
+
+.invisible {
+  visibility: hidden;
 }
 
 .inputContainer {
@@ -69,7 +135,7 @@ td {
 
 .table__data {
   outline: 1px solid #333;
-  margin: 50px auto;
+  margin: 0 auto;
 }
 
 .data {
@@ -87,7 +153,18 @@ td {
   outline: 1px solid #333;
   font-size: 1rem;
   font-weight: bold;
-  background-color: rgba(95, 95, 95, 0.2);
+  position: relative;
+}
+
+.percentRowBlock {
+  display: block;
+  position: absolute;
+  width: 54px;
+  bottom: 0;
+  height: 0;
+  background-color: #58919c;
+  z-index: -100;
+  transition: height 0.33s ease 0.1s;
 }
 
 .tdLighten {

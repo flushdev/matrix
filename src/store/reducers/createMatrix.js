@@ -14,6 +14,16 @@ export default (state = initialState, action) => {
         ...state,
         array: action.matrix
       };
+    case "ADD_NEW_ROW":
+      return {
+        ...state,
+        array: action.matrix
+      };
+    case "UPDATE_DATA_IN_NEW_ROW":
+      return {
+        ...state,
+        array: action.matrix
+      };
     case "MATRIX_DELETE":
       return initialState;
     default:

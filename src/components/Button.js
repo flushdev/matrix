@@ -12,7 +12,6 @@ const Button = ({
   handleButtonDisplay,
   empty
 }) => {
-  console.log(empty);
   const handleCreateMatrix = (M, N) => {
     create(M, N);
   };
@@ -28,15 +27,23 @@ const Button = ({
       Generate!
     </button>
   ) : (
-    <button
-      className={styles.buttonDelete}
-      onClick={() => {
-        deleteMatrix();
-        handleButtonDisplay();
-      }}
-    >
-      Delete Matrix
-    </button>
+    <>
+      <button
+        className={styles.buttonDelete}
+        onClick={() => {
+          deleteMatrix();
+          handleButtonDisplay();
+        }}
+      >
+        Delete Matrix
+      </button>
+      <button
+        className={styles.buttonDelete}
+        onClick={() => handleCreateMatrix(row, column)}
+      >
+        Reload Matrix
+      </button>
+    </>
   );
 };
 

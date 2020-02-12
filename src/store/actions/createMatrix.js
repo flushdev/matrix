@@ -1,7 +1,6 @@
 export const generateAndFillArray = (M, N) => {
-  console.log(M, N);
-  const matrix = [...Array(M)].map(() =>
-    [...Array(N)].map(cell => {
+  const matrix = [...Array(Math.abs(M))].map(() =>
+    [...Array(Math.abs(N))].map(cell => {
       cell = createMatrixData();
       return cell;
     })
@@ -16,6 +15,10 @@ const calculateR = matrix => {
   matrix.map(row =>
     row.push(row.reduce((acc, value) => acc + +value.value, 0))
   );
+};
+
+const calculateEmptyR = (matrix, row) => {
+  matrix[row].push(matrix[row].reduce((acc, value) => acc + +value.value, 0));
 };
 
 const calculateC = matrix => {
@@ -39,6 +42,12 @@ const calculatePercentage = matrix => {
   );
 };
 
+const addEmptyRow = (matrix, row) => {
+  return matrix.splice(row + 1, 0, [
+    ...Array(matrix[0].length - 1).fill({ value: null })
+  ]);
+};
+
 export const findNearestValues = (matrix, amount, nearestFor) => {
   const array = []
     .concat(...matrix)
@@ -51,9 +60,18 @@ export const findNearestValues = (matrix, amount, nearestFor) => {
   return array;
 };
 
+const updateMatrixData = newRow => {
+  return newRow.map(item => ({
+    id: `u${(~~(Math.random() * 1e8)).toString(16)}`,
+    value: item
+  }));
+};
+
 const createMatrixData = () => {
-  const id = `u${(~~(Math.random() * 1e8)).toString(16)}`;
-  return { id, value: Math.round(Math.random() * (999 - 100) + 100) };
+  return {
+    id: `u${(~~(Math.random() * 1e8)).toString(16)}`,
+    value: Math.round(Math.random() * (999 - 100) + 100)
+  };
 };
 
 const updateMatrix = (matrix, row_id, col_id) => {
@@ -64,9 +82,29 @@ const updateMatrix = (matrix, row_id, col_id) => {
   calculatePercentage(matrix);
 };
 
+export const addDataInNewRow = (matrix, row, newRow) => {
+  matrix.splice(row, 1, updateMatrixData(newRow));
+  calculateEmptyR(matrix, row);
+  matrix.pop();
+  matrix.push(calculateC(matrix));
+  calculatePercentage(matrix);
+  console.log(matrix);
+  return {
+    type: "UPDATE_DATA_IN_NEW_ROW",
+    matrix
+  };
+};
+
+export const addRow = (matrix, row) => {
+  addEmptyRow(matrix, row);
+  return {
+    type: "ADD_NEW_ROW",
+    matrix
+  };
+};
+
 export const incrementCell = (matrix, row_id, col_id) => {
   updateMatrix(matrix, row_id, col_id);
-  console.log(matrix);
   return {
     type: "INCREMENT_CELL",
     matrix
