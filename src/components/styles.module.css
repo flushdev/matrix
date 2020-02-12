@@ -82,7 +82,7 @@ input::-webkit-inner-spin-button {
 
 table {
   margin: 0 auto;
-  transform: translateX(-27px);
+  transform: translateX(-38px);
   border: 0;
 }
 
@@ -103,7 +103,7 @@ td {
   padding: 0;
   margin: 0;
   background-clip: padding-box;
-  transition: 0.15s ease;
+  transition: font-size 0.15s ease;
   overflow: hidden;
 }
 
@@ -113,14 +113,25 @@ td {
   margin-bottom: 20px;
 }
 
+.plusRow {
+  visibility: hidden;
+  font-weight: normal;
+  font-size: 1.5rem;
+  opacity: 0.1;
+  max-width: 54px;
+  min-width: 54px;
+  padding-left: 27px;
+  transition: 0.01s eases;
+}
+
 .deleteRow {
   visibility: hidden;
   font-weight: normal;
   font-size: 1.5rem;
   opacity: 0.1;
-  max-width: 20px;
-  min-width: 20px;
-  padding: 0;
+  max-width: 54px;
+  min-width: 54px;
+  margin-left: 27px;
   transition: 0.01s eases;
 }
 
@@ -136,6 +147,7 @@ td {
 .table__data {
   outline: 1px solid #333;
   margin: 0 auto;
+  padding: 0 25px;
 }
 
 .data {

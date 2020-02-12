@@ -72,7 +72,10 @@ const Form = () => {
         </>
       )}
 
-      <Table nearest={nearestAmount} />
+      <Table
+        nearest={nearestAmount}
+        handleButtonDisplay={handleButtonDisplay}
+      />
     </>
   );
 };

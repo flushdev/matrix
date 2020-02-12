@@ -1,5 +1,6 @@
 const initialState = {
-  array: null
+  array: null,
+  nearest: null
 };
 
 export default (state = initialState, action) => {
@@ -15,6 +16,11 @@ export default (state = initialState, action) => {
         array: action.matrix
       };
     case "ADD_NEW_ROW":
+      return {
+        ...state,
+        array: action.matrix
+      };
+    case "MATRIX_ROW_DELETE":
       return {
         ...state,
         array: action.matrix

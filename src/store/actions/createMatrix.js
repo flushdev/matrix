@@ -18,7 +18,7 @@ const calculateR = matrix => {
 };
 
 const calculateEmptyR = (matrix, row) => {
-  matrix[row].push(matrix[row].reduce((acc, value) => acc + +value.value, 0));
+  return matrix[row].reduce((acc, value) => acc + +value.value, 0);
 };
 
 const calculateC = matrix => {
@@ -84,13 +84,23 @@ const updateMatrix = (matrix, row_id, col_id) => {
 
 export const addDataInNewRow = (matrix, row, newRow) => {
   matrix.splice(row, 1, updateMatrixData(newRow));
-  calculateEmptyR(matrix, row);
+  matrix[row].push(calculateEmptyR(matrix, row));
   matrix.pop();
   matrix.push(calculateC(matrix));
   calculatePercentage(matrix);
-  console.log(matrix);
   return {
     type: "UPDATE_DATA_IN_NEW_ROW",
+    matrix
+  };
+};
+
+export const deleteRow = (matrix, row) => {
+  matrix.splice(row, 1);
+  matrix.pop();
+  matrix.push(calculateC(matrix));
+  calculatePercentage(matrix);
+  return {
+    type: "MATRIX_ROW_DELETE",
     matrix
   };
 };

@@ -1,14 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { incrementCell } from "../store/actions/createMatrix";
 import {
+  incrementCell,
   findNearestValues,
   addRow,
-  addDataInNewRow
+  addDataInNewRow,
+  deleteRow,
+  matrixDelete
 } from "../store/actions/createMatrix";
 import styles from "./styles.module.css";
 
-const Table = ({ array, increment, nearest, rowAdd, updateRowWithNewData }) => {
+const Table = ({
+  array,
+  increment,
+  nearest,
+  rowAdd,
+  updateRowWithNewData,
+  deleteRowFromMatrix,
+  deleteMatrix,
+  handleButtonDisplay
+}) => {
   const [matrix, setMatrix] = useState(null);
   const [displayPercent, setDisplayPercent] = useState(false);
   const [rowToPercent, setRowToPercent] = useState(null);
@@ -21,8 +32,10 @@ const Table = ({ array, increment, nearest, rowAdd, updateRowWithNewData }) => {
     setMatrix(array.array);
   }, [array]);
 
-  const handleUpdate = (array, row_id, col_id) => {
-    increment(array, row_id, col_id);
+  const handleUpdate = (array, row_id, col_id, value) => {
+    !editMode && increment(array, row_id, col_id);
+    handleCleanNearestData();
+    handleDisplayNearestData(value);
   };
   const handleChangeDisplayData = row => {
     setDisplayPercent(!displayPercent);
@@ -42,8 +55,8 @@ const Table = ({ array, increment, nearest, rowAdd, updateRowWithNewData }) => {
     setRowOver(row);
   };
   const handleAddRowToMatrix = (row, count) => {
-    setNewRowValues([...Array(count - 1)].fill(null));
-    rowAdd(matrix, row);
+    setNewRowValues([...Array(count - 1)].fill(100));
+    !editMode && rowAdd(matrix, row);
     setEditMode(!editMode);
   };
   const handleWriteDataInRow = (col_id, e) => {
@@ -56,6 +69,10 @@ const Table = ({ array, increment, nearest, rowAdd, updateRowWithNewData }) => {
       updateRowWithNewData(matrix, row_id, newRowValues);
     setNewRowValues(null);
     setEditMode(!editMode);
+  };
+  const handleDeleteRow = row_id => {
+    matrix.length === 2 && deleteMatrix() && handleButtonDisplay();
+    matrix.length > 2 && deleteRowFromMatrix(matrix, row_id);
   };
 
   return (
@@ -72,12 +89,11 @@ const Table = ({ array, increment, nearest, rowAdd, updateRowWithNewData }) => {
                         rowOver === row_id
                           ? {
                               visibility: "visible",
-                              opacity: ".95",
-                              width: "20px"
+                              opacity: ".95"
                             }
                           : null
                       }
-                      className={styles.deleteRow}
+                      className={styles.plusRow}
                       onClick={() =>
                         !editMode && handleAddRowToMatrix(row_id, row.length)
                       }
@@ -89,12 +105,12 @@ const Table = ({ array, increment, nearest, rowAdd, updateRowWithNewData }) => {
                         rowOver === row_id
                           ? {
                               visibility: "visible",
-                              opacity: ".95",
-                              width: "20px"
+                              opacity: ".95"
                             }
                           : null
                       }
                       className={styles.deleteRow}
+                      onClick={() => handleDeleteRow(row_id)}
                     >
                       -
                     </td>
@@ -118,8 +134,12 @@ const Table = ({ array, increment, nearest, rowAdd, updateRowWithNewData }) => {
                           ? styles.tdLighten
                           : styles.data
                       }
-                      onClick={() => handleUpdate(matrix, row_id, col_id)}
-                      onMouseOver={() => handleDisplayNearestData(item.value)}
+                      onClick={() =>
+                        handleUpdate(matrix, row_id, col_id, item.value)
+                      }
+                      onMouseOver={() => {
+                        handleDisplayNearestData(item.value);
+                      }}
                       onMouseOut={handleCleanNearestData}
                     >
                       {displayPercent && rowToPercent === row_id
@@ -144,7 +164,7 @@ const Table = ({ array, increment, nearest, rowAdd, updateRowWithNewData }) => {
                         <input
                           name="newRowInput"
                           type="number"
-                          placeholder="0"
+                          placeholder="100"
                           required={true}
                           onChange={e => handleWriteDataInRow(col_id, e)}
                         />
@@ -154,6 +174,7 @@ const Table = ({ array, increment, nearest, rowAdd, updateRowWithNewData }) => {
                           <button
                             className={styles.addButton}
                             onClick={() => handleAddDataRowToMatrix(row_id)}
+                            disabled={!editMode}
                           >
                             Add
                           </button>
@@ -191,7 +212,9 @@ const mapDispatchToProps = dispatch => ({
     dispatch(incrementCell(data, row_id, col_id)),
   rowAdd: (matrix, row) => dispatch(addRow(matrix, row)),
   updateRowWithNewData: (matrix, row, newRow) =>
-    dispatch(addDataInNewRow(matrix, row, newRow))
+    dispatch(addDataInNewRow(matrix, row, newRow)),
+  deleteRowFromMatrix: (matrix, row) => dispatch(deleteRow(matrix, row)),
+  deleteMatrix: () => dispatch(matrixDelete())
 });
 
 export default connect(
